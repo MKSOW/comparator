@@ -1,4 +1,4 @@
-name: Workflow avec Variable d'Environnement
+name: Téléchargement d’Artéfacts
 
 on:
   push:
@@ -6,12 +6,21 @@ on:
       - main
 
 jobs:
-  environment_variable:
+  upload_artifact:
     runs-on: ubuntu-22.04
-    env: # Définition des variables d'environnement
-      MESSAGE: "Déploiement réussi"
 
     steps:
-      # Étape 1 : Vérification de l'environnement
-      - name: Afficher la variable MESSAGE
-        run: echo "$MESSAGE"
+      # Étape 1 : Checkout du dépôt
+      - name: Checkout du dépôt
+        uses: actions/checkout@v3
+
+      # Étape 2 : Créer un fichier texte
+      - name: Générer un fichier rapport
+        run: echo "Rapport d'analyse" > report.txt
+
+      # Étape 3 : Télécharger le fichier comme artéfact
+      - name: Téléchargement de l’artéfact
+        uses: actions/upload-artifact@v3
+        with:
+          name: rapport-analyse
+          path: report.txt
