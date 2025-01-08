@@ -1,0 +1,18 @@
+name: scheduled workflows 
+
+#declachement programmlé avec un cron job
+
+on:
+  schedule:
+    - cron: '0 8 * * 1-5'
+    
+
+jobs:
+  scheduled_task:
+    runs-on: ubuntu-22.04
+
+
+    steps:
+    #message dans les logs 
+     - name: message log
+        run: echo "Bonjour ce workflow s'execute authomatiquement tous les jours a 8h, sauf le week-end"
