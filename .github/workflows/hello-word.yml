@@ -22,5 +22,5 @@ jobs:
       - name: Téléchargement de l’artéfact
         uses: actions/upload-artifact@v3
         with:
-          name: rapport-analyse
+          name: rapport-analyse  # Nom de l’artéfact
           path: report.txt
