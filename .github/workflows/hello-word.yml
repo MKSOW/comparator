@@ -1,4 +1,4 @@
-name: Workflow avec Variable d'Environnement
+name: Utilisation des Secrets
 
 on:
   push:
@@ -6,12 +6,17 @@ on:
       - main
 
 jobs:
-  environment_variable:
+  use_secrets:
     runs-on: ubuntu-22.04
-    env: # Définition des variables d'environnement
-      MESSAGE: "Déploiement réussi"
 
     steps:
-      # Étape 1 : Vérification de l'environnement
-      - name: Afficher la variable MESSAGE
-        run: echo "$MESSAGE"
+      # Étape 1 : Checkout du dépôt
+      - name: Checkout du dépôt
+        uses: actions/checkout@v3
+
+      # Étape 2 : Afficher le secret (masqué dans les logs)
+      - name: Afficher la clé API
+        env:
+          MY_SECRET: ${{ secrets.MYKEY }}
+        run: |
+          echo "La clé API est : $MY_SECRET"
