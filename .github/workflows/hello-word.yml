@@ -1,10 +1,30 @@
-name: Hello World Workflow
+name: Linter Workflow
 
-on: push
+# Déclencheur pour push et pull request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
-  greeting:
-    runs-on: ubuntu-22.04
+  linting:
+    runs-on: ubuntu-22.04 # Version explicite pour éviter les warnings
     steps:
-      - name: Say Hello World
-        run: echo "Hello World"
+      # Étape 1 : Vérification de la configuration
+      - name: Vérification du code
+        run: echo "Vérification des fichiers avant installation"
+
+      # Étape 2 : Checkout du dépôt
+      - name: Checkout du dépôt
+        uses: actions/checkout@v3
+
+      # Étape 3 : Installer les dépendances
+      - name: Installer les dépendances
+        run: |
+          npm install
+
+      # Étape 4 : Lancer le linter
+      - name: Exécuter le linter
+        run: |
+          npm run lint
